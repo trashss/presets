@@ -1,4 +1,4 @@
-getgenv().preset = false
+getgenv().preset = true
 
 getgenv().antikick = false
 getgenv().antiws = false
