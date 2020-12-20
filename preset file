@@ -5,7 +5,10 @@ getgenv().antiws = false
 
 
 if getgenv().preset == true then
-if true then
+local Ak = true
+local Aws = true
+
+if Ak == true then
    local getrawmetatable = getrawmetatable or debug.getmetatable
    local make_writeable = make_writeable or setreadonly or changereadonly or change_writeable
    make_writeable(getrawmetatable(game), false)
@@ -26,7 +29,7 @@ if true then
    getgenv().antikick = true
 end
 
-if true then
+if Aws == true then
    local gmt = getrawmetatable(game)
    setreadonly(gmt, false)
    local oldinex = gmt.__index
