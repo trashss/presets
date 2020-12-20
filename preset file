@@ -7,6 +7,7 @@ getgenv().antiws = false
 if getgenv().preset == true then
 local Ak = true
 local Aws = true
+end
 
 if Ak == true then
    local getrawmetatable = getrawmetatable or debug.getmetatable
