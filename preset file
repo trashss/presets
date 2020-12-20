@@ -41,6 +41,7 @@ end
 
 function preset()
 getgenv().preset = true
+print("Loading...")
 end
 if getgenv().preset == true then
 Aws()
