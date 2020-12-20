@@ -1,0 +1,56 @@
+getgenv().preset = false
+
+getgenv().antikick = false
+getgenv().antiws = false
+
+
+function Ak()
+local getrawmetatable = getrawmetatable or debug.getmetatable
+local make_writeable = make_writeable or setreadonly or changereadonly or change_writeable
+make_writeable(getrawmetatable(game), false)
+local backup = getrawmetatable(game).__namecall
+getrawmetatable(game).__namecall = function(u, ...)
+   local m = ({...})[select('#', ...)]
+   local packed = {...}
+   local a = {}
+   for i = 1, #packed - 1 do
+       a[i] = packed[i]
+   end
+   if m == 'Kick' then
+       warn('Kick attempt at ' .. os.time() .. ' (' .. tostring(unpack(a)) .. ')')
+       return true
+   end
+   return backup and backup(u, ...) or u[m](u, unpack(a))
+end
+getgenv().antikick = true
+end
+
+function Aws()
+local gmt = getrawmetatable(game)
+setreadonly(gmt, false)
+local oldinex = gmt.__index
+gmt.__index = newcclosure(function(self, b)
+    if b == "WalkSpeed" then
+        return 16    
+    end
+    return oldindex(self,b)
+end)
+setreadonly(gmt, true)
+getgenv().antiws = true
+end
+
+function preset()
+getgenv().preset = true
+end
+if getgenv().preset == true then
+Aws()
+Ak()
+end
+
+if getgenv().antiws == true and getgenv().antikick == true then
+print("All Preset Loaded")
+elseif getgenv().antikick == true and getgenv().antiws == false then
+print("Anti Kick Preset Loaded")
+elseif getgenv().antiws == true and getgenv().antikick == false then
+print("Anti WalkSpeed Preset Loaded")
+end
